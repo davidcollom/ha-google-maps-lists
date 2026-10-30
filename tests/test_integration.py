@@ -199,3 +199,28 @@ async def test_refresh_button_recovers_from_failure(hass):
         await hass.services.async_call("button", "press", {"entity_id": button_id}, blocking=True)
         await hass.async_block_till_done()
     assert entry.runtime_data.last_update_success
+
+
+async def test_disabled_zone_does_not_break_refresh(hass):
+    entry = await setup(hass)
+    registry = er.async_get(hass)
+    zone_id = next(iter(entry.runtime_data.zones.entities.values())).entity_id
+    registry.async_update_entity(zone_id, disabled_by=er.RegistryEntryDisabler.USER)
+    await hass.async_block_till_done()
+    await entry.runtime_data.zones.sync(
+        SavedList(SNAPSHOT.key, SNAPSHOT.name, (Place("place-a", "Renamed", 52, -2),))
+    )
+    assert entry.runtime_data.zones.entities["place-a"].place.name == "Renamed"
+
+
+async def test_same_name_as_existing_zone_is_not_adopted(hass):
+    assert await async_setup_component(
+        hass,
+        "zone",
+        {"zone": [{"name": "Example place", "latitude": 50, "longitude": -1, "radius": 200}]},
+    )
+    entry = await setup(hass)
+    imported = next(iter(entry.runtime_data.zones.entities.values())).entity_id
+    assert imported != "zone.example_place"
+    assert hass.states.get("zone.example_place").attributes["latitude"] == 50
+    assert hass.states.get(imported).attributes["latitude"] == 51

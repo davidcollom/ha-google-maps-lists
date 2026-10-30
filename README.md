@@ -61,6 +61,7 @@ Use Python 3.14:
 
 ```sh
 uv venv --python 3.14
+source .venv/bin/activate
 uv pip install -r requirements-dev.txt
 python -m pytest -q
 ruff check .

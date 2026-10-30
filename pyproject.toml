@@ -13,3 +13,6 @@ pythonpath = ["."]
 [tool.ruff]
 target-version = "py314"
 line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "BLE"]

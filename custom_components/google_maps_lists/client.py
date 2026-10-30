@@ -145,7 +145,7 @@ class MapsClient:
                     match = re.search(r"!11m\d+!2s([^!/?]+)", unquote(resolved))
                 if not match:
                     raise ListError("not_shared_list")
-                key = hashlib.sha256(match[1].encode()).hexdigest()
+                key = hashlib.sha256(unquote(match[1]).encode()).hexdigest()
                 preload = re.search(r"href=[\"\']([^\"\']*entitylist/getlist[^\"\']*)[\"\']", page)
                 if not preload:
                     raise ListError("not_shared_list")
