@@ -1,0 +1,7 @@
+Tool: built-in image_gen imagegen
+Transparent background: true
+
+Prompt:
+Use case: logo-brand. Create one polished, minimal app icon for an independent Home Assistant custom integration called Google Maps Lists, which synchronizes saved places into home geofences. A strong teal location-pin silhouette containing three short white rounded list strokes, with a small warm coral-orange circular sync arrow accent at its lower right. Clean flat vector-like geometric design, generous simple shapes, crisp silhouettes, perfectly centered square composition with 12% padding, readable at 32 px, no tiny detail, no text or letters, no gradients, no shadows, no Google G logo, no Home Assistant logo. Actual transparent background. Deliver a single standalone square icon, not a mockup, sheet, or presentation.
+
+The original is icon-source.png. Delivery sizes were prepared with sips: 256 x 256 and 512 x 512, preserving alpha.

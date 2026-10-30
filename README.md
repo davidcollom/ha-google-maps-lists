@@ -1,5 +1,7 @@
 # Google Maps Lists for Home Assistant
 
+<img src="custom_components/google_maps_lists/brand/icon@2x.png" alt="Google Maps Lists icon" width="96" height="96">
+
 Subscribe to shared Google Maps saved lists and turn their places into Home Assistant zones. Configure each list in the UI, then let Home Assistant refresh it automatically.
 
 This is an experimental custom integration. It reads the undocumented list endpoint used by the Google Maps website. Google may change that format. It does not use a Google API key or access private lists.
@@ -25,11 +27,22 @@ This repository can be installed as a HACS custom repository; inclusion in the d
 | --- | --- | --- |
 | Zone radius | 100 m | Applies to every zone imported by this list. Range: 10–5,000 m. |
 | Refresh interval | 60 minutes | Range: 15–1,440 minutes. |
-| Label | Google Maps | Creates or reuses a native HA label and adds it to the list's zone entities. Blank disables label assignment. Use different labels for different lists. |
+| Default group | Google Maps | Creates or reuses a native HA label and adds it to every zone from this list. Blank disables the default group. Use different names for different lists. |
+| Default zone icon | `mdi:google-maps` | Pick an icon for the list's zones. Individual zones can override it. |
 | Passive zones | Off | Passive zones can be used in automations but do not change a person's location name. |
 | Remove missing places | Off | Enable to remove this list's zones when their places disappear from a successful refresh. |
 
 Change these settings from the integration's **Configure** menu. The list URL is entered when adding the integration. To subscribe to a different list, add a separate entry.
+
+### Names, icons and groups for individual places
+
+Open the integration's **Configure → Customize a place**, select a place, then set a name override, choose an icon, and assign additional groups. For example, rename a street address to “Mum's house”, choose `mdi:home-heart`, and add it to a “Family” group.
+
+Overrides use Home Assistant's entity registry, so they survive Google refreshes, integration reloads and restarts. They can also be edited through the zone entity's settings. Clearing a name or icon override restores the shared-list name or list's default icon. Entity IDs stay unchanged.
+
+Grouping uses **native Home Assistant labels**. Every zone inherits its list's default group and can belong to multiple additional groups. Create additional labels in **Settings → Areas, labels & zones → Labels**, then select them in the place settings. Clear the list's default group if you want to manage all memberships individually. This does not create `group.*` aggregate entities.
+
+By default, zones use the name Google publishes in the shared list. Google's [private place labels](https://support.google.com/maps/answer/6257830?hl=en-GB) belong to your signed-in account and are not available through a signed-out shared list. Use a local name override for those nicknames; list notes are not treated as place names.
 
 Each list also creates a **saved places** diagnostic sensor and a **refresh** button. The sensor becomes unavailable when a refresh fails; the button remains available for retrying. Its `managed_zones` attribute includes retained zones when removal is disabled.
 
@@ -54,6 +67,8 @@ Lists returning 500 or more entries are rejected because the endpoint may trunca
 HA's zone component does not expose normal config-entry platform forwarding. The integration isolates a dedicated `EntityPlatform` adapter in `zones.py`, reuses HA's `Zone` class and tests this against HA. Future HA changes may require adapting it.
 
 The Google Maps format was researched using the public [gmaps-list](https://github.com/anupamchugh/gmaps-list) reader. This integration has its own asynchronous reader and uses Home Assistant's shared HTTP session.
+
+The integration ships its own transparent icon in `brand/`, including 256 px and 512 px assets. The icon was generated with the built-in image-generation tool; the source and prompt are in [`artwork/`](artwork/).
 
 ## Development
 

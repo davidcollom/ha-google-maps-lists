@@ -35,7 +35,7 @@ class ListZone(Zone):
             "longitude": place.longitude,
             "radius": options["radius"],
             "passive": options["passive"],
-            "icon": "mdi:google-maps",
+            "icon": options["icon"],
         }
 
     def _generate_attrs(self):

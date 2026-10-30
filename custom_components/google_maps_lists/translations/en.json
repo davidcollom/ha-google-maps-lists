@@ -15,9 +15,10 @@
         "data": {
           "radius": "Zone radius",
           "refresh_minutes": "Refresh interval",
-          "label": "Label for imported zones (blank for none)",
+          "label": "Default group (Home Assistant label; blank for none)",
           "passive": "Use passive zones",
-          "remove_missing": "Remove zones for places deleted from the list"
+          "remove_missing": "Remove zones for places deleted from the list",
+          "icon": "Default zone icon"
         }
       }
     },
@@ -36,16 +37,48 @@
   "options": {
     "step": {
       "init": {
-        "title": "Zone settings",
+        "title": "Google Maps Lists",
+        "menu_options": {
+          "settings": "List settings and default group",
+          "place": "Customize a place"
+        }
+      },
+      "settings": {
+        "title": "List settings",
         "data": {
           "radius": "Zone radius",
           "refresh_minutes": "Refresh interval",
-          "label": "Label for imported zones (blank for none)",
+          "label": "Default group (Home Assistant label; blank for none)",
           "passive": "Use passive zones",
-          "remove_missing": "Remove zones for places deleted from the list"
+          "remove_missing": "Remove zones for places deleted from the list",
+          "icon": "Default zone icon"
         },
-        "description": "Changes apply after the integration reloads. Existing user labels are preserved."
+        "description": "The default group is a Home Assistant label shared by all zones from this list. Existing user labels are preserved."
+      },
+      "place": {
+        "title": "Choose a place",
+        "description": "Choose a zone from this list to override its name, icon or additional groups.",
+        "data": {
+          "entity_id": "Place"
+        }
+      },
+      "customize": {
+        "title": "Customize place",
+        "description": "Google Maps name: {place}\n\nLeave a name or icon blank to follow the source name or default icon. Overrides survive refreshes and restarts. The default group “{default_group}” is always applied; choose any additional groups below. Groups use Home Assistant labels.",
+        "data": {
+          "name": "Name override",
+          "icon": "Icon override",
+          "labels": "Additional groups"
+        }
       }
+    },
+    "error": {
+      "zone_missing": "This zone no longer exists. Choose another place.",
+      "group_missing": "A selected group no longer exists. Select an existing label."
+    },
+    "abort": {
+      "no_zones": "There are no imported zones to customize yet. Refresh the list first.",
+      "zone_missing": "This zone no longer exists. Start again to choose another place."
     }
   }
 }

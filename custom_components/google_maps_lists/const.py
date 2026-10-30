@@ -7,4 +7,5 @@ DEFAULTS = {
     "label": "Google Maps",
     "passive": False,
     "remove_missing": False,
+    "icon": "mdi:google-maps",
 }
