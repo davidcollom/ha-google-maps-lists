@@ -1,0 +1,13 @@
+{
+  "domain": "google_maps_lists",
+  "name": "Google Maps Lists",
+  "codeowners": ["@davidcollom"],
+  "config_flow": true,
+  "dependencies": ["zone"],
+  "documentation": "https://github.com/davidcollom/ha-google-maps-lists",
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/davidcollom/ha-google-maps-lists/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

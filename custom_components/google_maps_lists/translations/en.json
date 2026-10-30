@@ -1,0 +1,51 @@
+{
+  "title": "Google Maps Lists",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Subscribe to a Google Maps list",
+        "description": "Enter a shared Google Maps list URL that opens without signing in. Private lists are not supported. Add another integration entry for each additional list.",
+        "data": {
+          "url": "Shared list URL"
+        }
+      },
+      "settings": {
+        "title": "Zone settings",
+        "description": "Zones will be created automatically. Enable removal only if places deleted from the list should also be removed from Home Assistant. Passive zones can trigger automations but do not change a person’s location name.",
+        "data": {
+          "radius": "Zone radius",
+          "refresh_minutes": "Refresh interval",
+          "label": "Label for imported zones (blank for none)",
+          "passive": "Use passive zones",
+          "remove_missing": "Remove zones for places deleted from the list"
+        }
+      }
+    },
+    "error": {
+      "invalid_url": "Enter an HTTPS Google Maps shared list URL.",
+      "cannot_connect": "Could not reach Google Maps. Try again later.",
+      "not_shared_list": "The link must open a shared list without signing in.",
+      "invalid_response": "Google returned incomplete or unrecognised list data. No zones were changed.",
+      "list_too_large": "Lists with 500 or more places are not supported yet.",
+      "unknown": "An unexpected error occurred."
+    },
+    "abort": {
+      "already_configured": "This list is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Zone settings",
+        "data": {
+          "radius": "Zone radius",
+          "refresh_minutes": "Refresh interval",
+          "label": "Label for imported zones (blank for none)",
+          "passive": "Use passive zones",
+          "remove_missing": "Remove zones for places deleted from the list"
+        },
+        "description": "Changes apply after the integration reloads. Existing user labels are preserved."
+      }
+    }
+  }
+}
